@@ -12,18 +12,21 @@ interface RecommendationStatsProps {
 	visitedNodes: number;
 	traversalTimeMs: number;
 	depth: number;
-	bfsDepth: number;
+	bfsDepth?: number;
 	totalTreeNodes: number;
 	treeHeight: number;
+	selectedGenreNames?: string[];
+	movieCount?: number;
 }
 
 const RecommendationStats: FC<RecommendationStatsProps> = ({
 	visitedNodes,
 	traversalTimeMs,
 	depth,
-	bfsDepth,
 	totalTreeNodes,
 	treeHeight,
+	selectedGenreNames = [],
+	movieCount = 0,
 }) => {
 	const timeComplexity = `O(${treeHeight})`;
 	const spaceComplexity = `O(${depth})`;
@@ -114,7 +117,7 @@ const RecommendationStats: FC<RecommendationStatsProps> = ({
 				</div>
 			</motion.div>
 
-			{/* DFS vs BFS Comparison */}
+			{/* Recommendation Summary (replaces DFS vs BFS) */}
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
@@ -122,27 +125,19 @@ const RecommendationStats: FC<RecommendationStatsProps> = ({
 				className="bg-netflix-card-bg border border-netflix-dark-bg rounded-lg p-4"
 			>
 				<div className="flex items-center gap-2 mb-3">
-					<FiTrendingUp className="w-5 h-5 text-netflix-red" />
-					<h4 className="text-white font-bold">DFS vs BFS</h4>
+					<FiTarget className="w-5 h-5 text-netflix-red" />
+					<h4 className="text-white font-bold">Your Preference</h4>
 				</div>
 				<div className="space-y-2">
 					<div className="flex justify-between">
-						<span className="text-netflix-gray text-sm">DFS Depth:</span>
-						<span className="text-white font-semibold">{depth}</span>
-					</div>
-					<div className="flex justify-between">
-						<span className="text-netflix-gray text-sm">BFS Depth:</span>
-						<span className="text-white font-semibold">{bfsDepth}</span>
-					</div>
-					<div className="flex justify-between">
-						<span className="text-netflix-gray text-sm">Better Algorithm:</span>
-						<span
-							className={`font-semibold ${
-								depth <= bfsDepth ? "text-netflix-red" : "text-white"
-							}`}
-						>
-							{depth <= bfsDepth ? "DFS ✓" : "BFS ✓"}
+						<span className="text-netflix-gray text-sm">Selected Genres:</span>
+						<span className="text-white font-semibold truncate max-w-[60%] text-right">
+							{selectedGenreNames.length > 0 ? selectedGenreNames.join(", ") : "N/A"}
 						</span>
+					</div>
+					<div className="flex justify-between">
+						<span className="text-netflix-gray text-sm">Movie Results:</span>
+						<span className="text-white font-semibold">{movieCount}</span>
 					</div>
 				</div>
 			</motion.div>

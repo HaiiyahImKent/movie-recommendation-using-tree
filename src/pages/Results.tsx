@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import MovieGrid from "../components/MovieGrid";
 import RecommendationStats from "../components/RecommendationStats";
-import { Movie } from "../services/tmdb";
+import { Movie, GenreMap } from "../services/tmdb";
 import tmdbService from "../services/tmdb";
 import {
 	buildQueryFromGenres,
@@ -37,6 +37,7 @@ const Results: FC = () => {
 	const location = useLocation();
 	const [movies, setMovies] = useState<MovieCardProps[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [genreMap, setGenreMap] = useState<GenreMap>({});
 
 	const state = location.state as LocationState | undefined;
 
@@ -47,6 +48,7 @@ const Results: FC = () => {
 
 				// Fetch TMDB genres
 				const genres = await tmdbService.fetchGenres();
+				setGenreMap(genres);
 
 				// Fetch movies by genres using TMDB + genreQuery
 				if (state?.genres && state.genres.length > 0) {
@@ -153,7 +155,13 @@ const Results: FC = () => {
 						<h2 className="text-2xl font-bold text-white mb-6">
 							📊 Algorithm Performance
 						</h2>
-						<RecommendationStats {...state.stats} />
+						<RecommendationStats
+							{...state.stats}
+							selectedGenreNames={(state?.genres || [])
+								.map((id) => genreMap[id])
+								.filter(Boolean)}
+							movieCount={movies.length}
+						/>
 					</motion.div>
 				)}
 
