@@ -1,0 +1,50 @@
+/**
+ * Global Styles
+ * Tailwind CSS imports and global configuration
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply box-border;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	@apply bg-netflix-black text-white font-sans;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #e50914;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #c20812;
+}
+
+/* Smooth transitions */
+* {
+	transition-property: background-color, border-color, color, fill, stroke;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 200ms;
+}
+
+/* Remove transition for animations */
+[data-animated] {
+	transition: none;
+}
