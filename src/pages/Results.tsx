@@ -8,8 +8,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import MovieGrid from "../components/MovieGrid";
 import RecommendationStats from "../components/RecommendationStats";
-import { Movie } from "../services/omdb";
-import omdbService from "../services/omdb";
+import { Movie } from "../services/tmdb";
+import tmdbService from "../services/tmdb";
+import {
+	buildQueryFromGenres,
+	buildComedyOnlyQuery,
+	buildThrillerOnlyQuery,
+	buildActionOnlyQuery,
+	buildRomanceOnlyQuery,
+	scoreMovieGenres,
+} from "../utils/genreQuery";
 import { MovieCardProps } from "../components/MovieCard";
 
 interface LocationState {
@@ -37,42 +45,61 @@ const Results: FC = () => {
 			try {
 				setIsLoading(true);
 
-				// Fetch genres
-				const genres = await omdbService.fetchGenres();
+				// Fetch TMDB genres
+				const genres = await tmdbService.fetchGenres();
 
-				// Fetch movies by genres
+				// Fetch movies by genres using TMDB + genreQuery
 				if (state?.genres && state.genres.length > 0) {
-					const recommendedMovies = await omdbService.discoverMoviesByGenres(
-						state.genres,
-						50
-					);
+					// If pure comedy intent (TMDB Comedy ID = 35), use strict comedy-only params
+					const isComedyOnly = state.genres.length === 1 && state.genres[0] === 35;
+					const isThrillerOnly = state.genres.length === 1 && state.genres[0] === 53;
+					const isActionOnly = state.genres.length === 1 && state.genres[0] === 28;
+					const isRomanceOnly = state.genres.length === 1 && state.genres[0] === 10749;
+					const params = isComedyOnly
+						? buildComedyOnlyQuery({ sortBy: "popularity.desc" })
+						: isThrillerOnly
+						? buildThrillerOnlyQuery({ sortBy: "popularity.desc" })
+						: isActionOnly
+						? buildActionOnlyQuery({ sortBy: "popularity.desc" })
+						: isRomanceOnly
+						? buildRomanceOnlyQuery({ sortBy: "popularity.desc" })
+						: buildQueryFromGenres(state.genres, { sortBy: "popularity.desc" });
 
-					const formattedMovies: MovieCardProps[] = recommendedMovies.map(
-						(movie: Movie) => ({
-							id: movie.id,
-							title: movie.title,
-							image: omdbService.getImageUrl(movie.poster_path),
-							overview: movie.overview,
-							genreNames: movie.genre_ids.map((id) => genres[id]).filter(Boolean),
-							netflixUrl: omdbService.getNetflixSearchUrl(movie.title),
-							displayYear: movie.release_date
-								? new Date(movie.release_date).getFullYear()
-								: "N/A",
-							voteAverage: movie.vote_average,
-						})
-					);
+					const recommendedMovies = await tmdbService.discoverMovies(params, 50);
+
+					// Rank for closeness to intended genres
+					const ranked = recommendedMovies
+						.map((m) => ({
+							movie: m,
+							score: scoreMovieGenres(m.genre_ids, state.genres),
+						}))
+						.sort((a, b) => b.score - a.score)
+						.map((x) => x.movie);
+
+					const formattedMovies: MovieCardProps[] = ranked.map((movie: Movie) => ({
+						id: movie.id,
+						title: movie.title,
+						image: tmdbService.getImageUrl(movie.poster_path),
+						overview: movie.overview,
+						genreNames: movie.genre_ids.map((id) => genres[id]).filter(Boolean),
+						netflixUrl: tmdbService.getNetflixSearchUrl(movie.title),
+						displayYear: movie.release_date
+							? new Date(movie.release_date).getFullYear()
+							: "N/A",
+						voteAverage: movie.vote_average,
+					}));
 
 					setMovies(formattedMovies);
 				} else {
-					// Fallback to popular movies if no genres specified
-					const popularMovies = await omdbService.getPopularMovies(50);
+					// Fallback to popular movies if no genres specified (TMDB)
+					const popularMovies = await tmdbService.getPopularMovies(50);
 					const formattedMovies: MovieCardProps[] = popularMovies.map((movie: Movie) => ({
 						id: movie.id,
 						title: movie.title,
-						image: omdbService.getImageUrl(movie.poster_path),
+						image: tmdbService.getImageUrl(movie.poster_path),
 						overview: movie.overview,
 						genreNames: movie.genre_ids.map((id) => genres[id]).filter(Boolean),
-						netflixUrl: omdbService.getNetflixSearchUrl(movie.title),
+						netflixUrl: tmdbService.getNetflixSearchUrl(movie.title),
 						displayYear: movie.release_date
 							? new Date(movie.release_date).getFullYear()
 							: "N/A",

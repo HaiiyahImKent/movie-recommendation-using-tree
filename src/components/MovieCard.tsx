@@ -26,7 +26,6 @@ const MovieCard: FC<MovieCardProps> = ({
 	genreNames,
 	netflixUrl,
 	displayYear,
-	voteAverage,
 	index = 0,
 }) => {
 	return (
@@ -45,12 +44,6 @@ const MovieCard: FC<MovieCardProps> = ({
 					alt={title}
 					className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
 				/>
-				{/* Rating Badge */}
-				<div className="absolute top-3 right-3 bg-netflix-red bg-opacity-90 backdrop-blur-sm px-3 py-1 rounded-full">
-					<span className="text-white font-bold text-sm">
-						⭐ {voteAverage.toFixed(1)}
-					</span>
-				</div>
 			</div>
 
 			{/* Content Container */}

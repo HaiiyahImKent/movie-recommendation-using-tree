@@ -167,12 +167,40 @@ class OMDBService {
 				}
 			}
 
-			// Remove duplicates and limit
-			const uniqueMovies = Array.from(
-				new Map(allMovies.map((m) => [m.id, m])).values()
-			).slice(0, pageSize);
+			// Remove duplicates
+			let uniqueMovies = Array.from(new Map(allMovies.map((m) => [m.id, m])).values());
 
-			return uniqueMovies.filter((movie) => movie.poster_path && movie.overview);
+			// Enforce comedy-only when intent is strictly Comedy (ID 4) with no secondary genres
+			const isComedyOnly = genreIds.length > 0 && genreIds[0] === 4 && genreIds.length === 1;
+			if (isComedyOnly) {
+				const heavyGenresToExclude = new Set<number>([
+					7, // Drama
+					16, // Romance
+					12, // Horror
+					21, // Thriller
+					5, // Crime
+					1, // Action
+					9, // Fantasy
+					2, // Adventure
+					17, // Sci-Fi
+					11, // History
+					15, // Mystery
+					22, // War
+				]);
+
+				uniqueMovies = uniqueMovies.filter((movie) => {
+					const hasComedy = movie.genre_ids.includes(4);
+					const hasHeavy = movie.genre_ids.some((g) => heavyGenresToExclude.has(g));
+					return hasComedy && !hasHeavy;
+				});
+			}
+
+			// Limit and basic validation
+			uniqueMovies = uniqueMovies
+				.filter((movie) => movie.poster_path && movie.overview)
+				.slice(0, pageSize);
+
+			return uniqueMovies;
 		} catch (error) {
 			console.error("❌ Error discovering movies:", error);
 			return [];
@@ -374,6 +402,6 @@ String.prototype.hashCode = function (this: string): number {
 };
 
 // Initialize with OMDB API key
-const OMDB_API_KEY = "99a2a8e3";
+const OMDB_API_KEY = "26735307eb2d16b886372a6078d13594";
 
 export default new OMDBService(OMDB_API_KEY);

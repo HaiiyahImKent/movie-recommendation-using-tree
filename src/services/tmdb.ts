@@ -109,6 +109,51 @@ class TMDBService {
 	}
 
 	/**
+	 * Discover movies using raw TMDB discover params (supports with_genres/without_genres)
+	 * @param params - TMDB discover parameters
+	 * @param pageSize - Number of movies to fetch
+	 */
+	async discoverMovies(params: Record<string, string>, pageSize: number = 50): Promise<Movie[]> {
+		try {
+			if (
+				!this.api.defaults.params?.api_key ||
+				this.api.defaults.params.api_key === "1234567890abcdef1234567890abcdef"
+			) {
+				console.warn(
+					"⚠️ TMDB API Key not configured! Please add your API key to src/services/tmdb.ts line 193"
+				);
+				return [];
+			}
+
+			const moviesPerPage = 20;
+			const pages = Math.ceil(pageSize / moviesPerPage);
+			const allMovies: Movie[] = [];
+
+			for (let page = 1; page <= pages && allMovies.length < pageSize; page++) {
+				const response = await this.api.get<{ results: Movie[]; total_pages: number }>(
+					"/discover/movie",
+					{
+						params: {
+							...params,
+							sort_by: params.sort_by || "popularity.desc",
+							page,
+							include_adult: false,
+							language: "en-US",
+						},
+					}
+				);
+
+				allMovies.push(...response.data.results.slice(0, pageSize - allMovies.length));
+			}
+
+			return allMovies.filter((movie) => movie.poster_path && movie.overview);
+		} catch (error) {
+			console.error("❌ Error discovering movies:", error);
+			return [];
+		}
+	}
+
+	/**
 	 * Search movies by title
 	 * @param query - Search query string
 	 * @returns Promise<Movie[]> - Array of matching movies
@@ -200,8 +245,8 @@ class TMDBService {
 	}
 }
 
-// Initialize with a public TMDB API key (limited access)
-// In production, this should be in environment variables
-const TMDB_API_KEY = "1234567890abcdef1234567890abcdef"; // Placeholder - user must provide
+// Initialize with your TMDB API key (get one free at https://www.themoviedb.org/settings/api)
+// In production, move this to environment variables
+const TMDB_API_KEY = "26735307eb2d16b886372a6078d13594"; // Inserted user-provided TMDB API key
 
 export default new TMDBService(TMDB_API_KEY);
