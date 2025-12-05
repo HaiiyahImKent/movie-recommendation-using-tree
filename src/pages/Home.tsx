@@ -301,7 +301,7 @@ const Home: FC = () => {
 						viewport={{ once: true }}
 						className="mt-8 bg-netflix-card-bg p-8 rounded-lg border border-netflix-dark-bg"
 					>
-						<h3 className="text-white font-bold text-xl mb-4">📊 Algorithm Details</h3>
+						<h3 className="text-white font-bold text-xl mb-4">Algorithm Details</h3>
 						<p className="text-netflix-gray mb-4">
 							<strong className="text-white">
 								Depth-First Search (DFS) Traversal:
