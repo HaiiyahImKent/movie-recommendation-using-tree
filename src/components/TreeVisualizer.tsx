@@ -1,7 +1,7 @@
 /**
- * TreeVisualizer Component
- * Displays the decision tree structure and current traversal path
- * Highlights visited nodes and the current position
+ * 5. Components: Tree Visualizer Component
+ *    - It displays the decision tree structure and current traversal path
+ *    - It also highlights visited nodes and the current position in the tree when you are picking answers
  */
 
 import { FC, useMemo } from "react";

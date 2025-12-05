@@ -7,10 +7,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Recommend from "./pages/Recommend";
 import Results from "./pages/Results";
+import { SessionHistory } from "./components/SessionHistory";
 
 function App() {
 	return (
 		<Router>
+			<SessionHistory />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/recommend" element={<Recommend />} />

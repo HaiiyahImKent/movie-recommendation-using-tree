@@ -3,8 +3,7 @@
  * This is basically a Decision Tree that uses DFS traversal para sa movie recommendations
  * So yung Time Complexity nito is O(h) where h is the height of the tree
  * Tapos yung Space Complexity is also O(h) kasi nagagamit yung recursion stack
- *
- * Submitted by: Group 7 - CinePath Project
+
  */
 
 export interface DecisionNode {
@@ -48,10 +47,10 @@ export class DecisionTree {
 			yes: {
 				// Energized/Excited path
 				// Q2: Intensity preference
-				question: "Do you want high-energy action or something lighter?",
+				question: "Do you want high-energy action",
 				yes: {
 					// Q3: Action intensity
-					question: "Do you prefer superhero or fantasy action?",
+					question: "Do you prefer superhero over fantasy action?",
 					yes: {
 						// Q4: Superhero/Fantasy
 						question: "Do you prefer sci-fi over magical fantasy?",
@@ -124,7 +123,7 @@ export class DecisionTree {
 								question: "Should it be epic/grand scale?",
 								yes: {
 									// Q7: Epic fantasy
-									question: "Do you like mythology or magical worlds?",
+									question: "Do you like mythology and magical worlds?",
 									yes: {
 										// Q8: Mythological fantasy
 										question: "Should it have dark elements?",
@@ -168,7 +167,7 @@ export class DecisionTree {
 						},
 						no: {
 							// Q5: Realistic/crime action
-							question: "Do you like heist or crime stories?",
+							question: "Do you like heist and crime stories?",
 							yes: {
 								// Q6: Crime/Heist
 								question: "Should it have thriller elements?",
@@ -252,7 +251,7 @@ export class DecisionTree {
 							},
 							no: {
 								// Q6: Martial arts/combat sports
-								question: "Do you like martial arts or combat sports?",
+								question: "Do you like martial arts and combat sports?",
 								yes: {
 									// Q7: Martial arts
 									question: "Should it be historical?",
@@ -383,7 +382,7 @@ export class DecisionTree {
 									question: "Do you like satire?",
 									yes: {
 										// Q8: Satirical comedy
-										question: "Do you prefer political/social satire?",
+										question: "Do you prefer political and social satire?",
 										yes: {
 											// Q9: Political satire
 											question: "Do you like dark comedy?",

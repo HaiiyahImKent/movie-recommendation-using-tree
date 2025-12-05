@@ -1,6 +1,6 @@
 /**
- * MovieGrid Component
- * Displays a grid of recommended movies
+ * 2. Components: Movie Grid Component
+ *    - It renders a grid layout of the Movie Card Components
  */
 
 import { FC } from "react";

@@ -73,7 +73,7 @@ const Home: FC = () => {
 						Discover Your Paborite Movie with Just{" "}
 						<span className="text-netflix-red font-semibold">
 							{" "}
-							10 personalized questions
+							7+ personalized questions
 						</span>{" "}
 						and get recommendations suited to your taste.
 					</motion.p>

@@ -1,7 +1,7 @@
 /**
- * QuestionCard Component
- * Displays a single decision tree question with YES/NO buttons
- * Includes animations and accessibility features
+ * 3. Components: Question Card Component
+ *    - It displays a single decision tree question with YES/NO buttons
+ *    - It also includes animations and accessibility features
  */
 
 import { FC } from "react";

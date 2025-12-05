@@ -1,6 +1,6 @@
 /**
- * MovieCard Component
- * Displays a single movie recommendation with poster, details, and Netflix link
+ * 1. Components: Movie Card Component
+ *    - It Displays a single movie recommendation with poster, details, and Netflix link (from the API Calling Code in Results.tsx)
  */
 
 import { FC } from "react";
@@ -37,7 +37,7 @@ const MovieCard: FC<MovieCardProps> = ({
 			whileHover={{ y: -8 }}
 			className="group bg-netflix-card-bg rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
 		>
-			{/* Poster Image Container */}
+			{/* The Poster Image Container */}
 			<div className="relative overflow-hidden bg-netflix-dark-bg aspect-[2/3]">
 				<motion.img
 					src={image}
@@ -46,9 +46,9 @@ const MovieCard: FC<MovieCardProps> = ({
 				/>
 			</div>
 
-			{/* Content Container */}
+			{/* The Content Container */}
 			<div className="p-4 flex-1 flex flex-col justify-between">
-				{/* Title and Year */}
+				{/* Title and Year of each movie */}
 				<div className="mb-3">
 					<h3 className="text-white font-bold text-lg leading-snug line-clamp-2 mb-1">
 						{title}
@@ -56,10 +56,10 @@ const MovieCard: FC<MovieCardProps> = ({
 					<p className="text-netflix-gray text-sm">{displayYear}</p>
 				</div>
 
-				{/* Overview */}
+				{/* Overview of the Movie */}
 				<p className="text-netflix-gray text-sm line-clamp-3 mb-4 flex-grow">{overview}</p>
 
-				{/* Genres */}
+				{/* Genres of the Movie */}
 				<div className="flex flex-wrap gap-2 mb-4">
 					{genreNames.slice(0, 3).map((genre) => (
 						<span
@@ -71,7 +71,7 @@ const MovieCard: FC<MovieCardProps> = ({
 					))}
 				</div>
 
-				{/* Netflix Link Button */}
+				{/* Netflix Link Button here*/}
 				<motion.a
 					href={netflixUrl}
 					target="_blank"

@@ -1,7 +1,7 @@
 /**
- * RecommendationStats Component
- * Displays algorithm metrics and performance statistics
- * Shows DFS vs BFS comparison and traversal details
+ * 4. Components: Recommendation Stats Component
+ *    - It displays algorithm metrics and performance statistics
+ *    - It will appear on the end of the algorithm results page
  */
 
 import { FC } from "react";
@@ -57,7 +57,7 @@ const RecommendationStats: FC<RecommendationStatsProps> = ({
 					<div className="flex justify-between">
 						<span className="text-netflix-gray text-sm">Time Taken:</span>
 						<span className="text-netflix-red font-semibold">
-							{traversalTimeMs.toFixed(2)}ms
+							{traversalTimeMs.toFixed(7)}ms
 						</span>
 					</div>
 				</div>
