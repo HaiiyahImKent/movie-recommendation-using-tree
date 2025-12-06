@@ -1,6 +1,6 @@
 /**
  * OMDB API Service
- * Handles all API calls to Open Movie Database
+ * This is wereHandles all API calls to Open Movie Database
  * Fetches movies and related data
  */
 

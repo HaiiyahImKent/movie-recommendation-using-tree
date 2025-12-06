@@ -1,6 +1,7 @@
 /**
  * Home Page
- * Landing page with project introduction and call-to-action
+ * Where the Hero Page, the main landing page of the CinePath application is implemented. 
+ * The Documentation section is also included here.
  */
 
 import { FC } from "react";
@@ -33,13 +34,13 @@ const Home: FC = () => {
 
 	return (
 		<div className="min-h-screen bg-netflix-black overflow-hidden">
-			{/* Animated Background */}
+			{/* Where Animated Background code is used */}
 			<div className="absolute inset-0">
 				<div className="absolute top-0 left-1/4 w-96 h-96 bg-netflix-red rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
 				<div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
 			</div>
 
-			{/* Content */}
+			{/* Where Content is rendered */}
 			<div className="relative z-10 min-h-screen flex items-center justify-center px-4">
 				<motion.div
 					variants={containerVariants}
@@ -47,7 +48,7 @@ const Home: FC = () => {
 					animate="visible"
 					className="max-w-4xl text-center"
 				>
-					{/* Logo/Branding */}
+					{/* Where Logo/Branding is displayed */}
 					<motion.div variants={itemVariants} className="mb-8">
 						<div className="inline-block">
 							<h1 className="text-hero font-black text-white mb-2 tracking-tight">
@@ -57,7 +58,7 @@ const Home: FC = () => {
 						</div>
 					</motion.div>
 
-					{/* Tagline */}
+					{/* Where my favorite tagline is displayed */}
 					<motion.p
 						variants={itemVariants}
 						className="text-3xl md:text-4xl text-white font-light mb-4 leading-relaxed"

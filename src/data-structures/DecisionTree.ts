@@ -1,9 +1,9 @@
 /**
  * BINARY DECISION TREE Data Structure
- * This is basically a Decision Tree that uses DFS traversal para sa movie recommendations
- * So yung Time Complexity nito is O(h) where h is the height of the tree
- * Tapos yung Space Complexity is also O(h) kasi nagagamit yung recursion stack
-
+ * This file contains the implementation of a binary decision tree used to recommend movie genres based on user responses to a series of questions.
+ * The tree is designed to be around 7-12 questions deep to ensure a thorough recommendation process. We used Depth-First Search (DFS) for traversing the tree.
+ * The tree is called Binary Decision Tree. And each node represents a question with YES/NO branches leading to further questions or genre recommendations.
+ * The Space and Time Complexity of traversing this tree is O(d), where d is the depth of the tree (number of questions).
  */
 
 export interface DecisionNode {
@@ -35,11 +35,8 @@ export class DecisionTree {
 		this.root = this.buildTree();
 	}
 
-	/**
-	 * This method builds the binary decision tree with around 10-15 questions deep
-	 * So basically each node has a question tapos may yes/no branches siya going to leaf nodes na may genres
-	 * Ginawa namin to para ma-sure na the users will answer atleast 10-15 questions before makuha yung recommendations
-	 */
+
+	
 	private buildTree(): DecisionNode {
 		return {
 			// Q1: Mood & Energy Level

@@ -1,6 +1,8 @@
 /**
- * QUEUE Data Structure
- * Used for storing past recommendation sessions (Recent Picks)
+ * QUEUE Data Structure 
+ * Where the Queue data structure is implemented to manage the session history in a FIFO manner.
+ * Used for storing past recommendation sessions (Recent Picks), up to 10 sessions.
+ * If the 11th session is added, the oldest (1st) session is removed. (FIFO)
  * Time Complexity: O(1) for enqueue/dequeue operations
  */
 

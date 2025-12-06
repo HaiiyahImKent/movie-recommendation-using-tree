@@ -1,6 +1,8 @@
 /**
  * STACK Data Structure
- * Used for storing previous decision nodes to implement UNDO functionality
+ * This is where the Stack data structure is implemented.
+ * We used LIFO principle here.
+ * Used for storing previous decision nodes to implement UNDO functionality, so that the user has a chance to go back to previous questions.
  * Time Complexity: O(1) for push/pop operations
  */
 

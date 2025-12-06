@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-**CinePath** is a sophisticated movie recommendation system that combines three fundamental data structures—**Binary Decision Tree**, **Queue**, and **Stack**—to deliver fast, intelligent recommendations in under a millisecond. Users answer 7-12 yes/no questions, receive 50 personalized movie recommendations, and can replay previous sessions with perfect fidelity.
+**CinePath** is a sophisticated movie recommendation system that combines three fundamental data structures—**Binary Decision Tree**, **Queue**, and **Stack**—to deliver fast, intelligent recommendations in under a millisecond. Users answer 7-12 yes/no questions, receive 50 personalized movie recommendations each sessions, and can replay previous sessions with perfect fidelity.
 
 ---
 

@@ -1,5 +1,5 @@
 /**
- * 5. Components: Tree Visualizer Component
+ * 6. Components: Tree Visualizer
  *    - It displays the decision tree structure and current traversal path
  *    - It also highlights visited nodes and the current position in the tree when you are picking answers
  */
@@ -25,7 +25,7 @@ const TreeVisualizer: FC<TreeNodeVisualizerProps> = ({
 
 	return (
 		<div className="bg-netflix-card-bg rounded-lg p-6 border border-netflix-dark-bg">
-			{/* Header */}
+			{/*  The Header */}
 			<div className="mb-6">
 				<h3 className="text-white font-bold text-lg mb-2">Decision Path</h3>
 				<p className="text-netflix-gray text-sm">
@@ -33,7 +33,7 @@ const TreeVisualizer: FC<TreeNodeVisualizerProps> = ({
 				</p>
 			</div>
 
-			{/* Tree Visualization */}
+			{/* Where Tree Visualization Presents */}
 			<div className="space-y-3 max-h-64 overflow-y-auto">
 				{visiblePath.map((question, index) => (
 					<motion.div
@@ -57,7 +57,7 @@ const TreeVisualizer: FC<TreeNodeVisualizerProps> = ({
 							)}
 						</div>
 
-						{/* Question Text */}
+						{/* Where Question text contains */}
 						<div className="flex-1 min-w-0">
 							<p
 								className={`text-sm leading-snug ${
@@ -76,7 +76,7 @@ const TreeVisualizer: FC<TreeNodeVisualizerProps> = ({
 				))}
 			</div>
 
-			{/* Analytics Footer */}
+			{/* The Analytics Footer */}
 			<div className="mt-6 pt-4 border-t border-netflix-dark-bg">
 				<div className="grid grid-cols-2 gap-4 text-xs">
 					<div>

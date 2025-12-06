@@ -1,3 +1,9 @@
+/**
+ * 5. Components: Session History
+ *    - Stores session data (selected genres, movie count, timestamp) in localStorage
+ *    - Displays a list of past sessions with details and allows clearing individual or all sessions
+ */
+
 import React, { useState, useEffect } from "react";
 import { MdDelete, MdHistory, MdCalendarToday, MdMovie } from "react-icons/md";
 
@@ -7,7 +13,7 @@ interface SessionItem {
 	genres: number[];
 	movieCount: number;
 	genreNames: string[];
-	movies?: any[]; // Store full movie list for replay
+	movies?: any[]; // It stores full movie list for replay
 	stats?: {
 		visitedNodes: number;
 		traversalTimeMs: number;
@@ -22,6 +28,7 @@ interface SessionHistoryProps {
 	onSelectSession?: (sessionId: string) => void;
 }
 
+// Mapping of genre IDs to names (The ID is converted into names)
 const GENRE_MAP: { [key: number]: string } = {
 	12: "Adventure",
 	28: "Action",
@@ -42,13 +49,15 @@ const GENRE_MAP: { [key: number]: string } = {
 	10752: "War",
 };
 
+// The main SessionHistory component (Where the session code exists)
 export const SessionHistory: React.FC<SessionHistoryProps> = ({
 	onSelectSession: _onSelectSession,
 }) => {
 	const [sessions, setSessions] = useState<SessionItem[]>([]);
 	const [isVisible, setIsVisible] = useState(false);
 
-	// Load sessions from localStorage on component mount and when sessions are saved
+	// Where you load sessions from localStorage on component mount and when sessions are saved
+	// If you refresh the session, it the API key will reset, the results will be lost, so that the session will not be doubled
 	useEffect(() => {
 		loadSessions();
 
@@ -146,7 +155,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 						</button>
 					</div>
 
-					{/* Session List */}
+					{/* The Session List */}
 					<div className="flex-1 overflow-y-auto">
 						{sessions.length === 0 ? (
 							<div className="p-8 text-center text-gray-400">
@@ -161,7 +170,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 										key={session.id}
 										className="bg-card-dark hover:bg-gray-800 p-3 rounded border border-gray-700 transition-all cursor-pointer group"
 										onClick={() => {
-											// Pass entire session for replay
+											// Pass the entire session for replay
 											window.dispatchEvent(
 												new CustomEvent("cinepath-replay-session", {
 													detail: session,
@@ -170,7 +179,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 											setIsVisible(false);
 										}}
 									>
-										{/* Session Number & Date */}
+										{/* Session Number & Date for better readability */}
 										<div className="flex items-center justify-between mb-2">
 											<span className="text-netflix-red font-bold text-sm">
 												#{sessions.length - index}
@@ -181,7 +190,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 											</div>
 										</div>
 
-										{/* Genres */}
+										{/* Where Genres are displayed */}
 										<div className="flex flex-wrap gap-1 mb-2">
 											{session.genreNames.map((genre) => (
 												<span
@@ -193,7 +202,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 											))}
 										</div>
 
-										{/* Movie Count */}
+										{/* Where Movie Count is displayed */}
 										<div className="flex items-center justify-between">
 											<span className="text-gray-400 text-sm">
 												{session.movieCount} movies found
@@ -214,7 +223,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 						)}
 					</div>
 
-					{/* Footer */}
+					{/* The Footer */}
 					{sessions.length > 0 && (
 						<div className="border-t border-gray-700 p-3 rounded-b-lg bg-dark">
 							<button
@@ -228,7 +237,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({
 				</div>
 			)}
 
-			{/* Overlay */}
+			{/* The Overlay */}
 			{isVisible && (
 				<div
 					className="fixed inset-0 bg-black bg-opacity-30 z-30"
