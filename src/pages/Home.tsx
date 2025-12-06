@@ -73,7 +73,7 @@ const Home: FC = () => {
 						Discover Your Paborite Movie with Just{" "}
 						<span className="text-netflix-red font-semibold">
 							{" "}
-							7+ personalized questions
+							5+ personalized questions
 						</span>{" "}
 						and get recommendations suited to your taste.
 					</motion.p>
@@ -175,7 +175,7 @@ const Home: FC = () => {
 						viewport={{ once: true }}
 						className="text-title text-white font-bold mb-8"
 					>
-						📚 How It Works
+						How It Works
 					</motion.h2>
 
 					<motion.div
@@ -268,7 +268,7 @@ const Home: FC = () => {
 						viewport={{ once: true }}
 						className="mt-12 bg-netflix-card-bg p-8 rounded-lg border border-netflix-dark-bg"
 					>
-						<h3 className="text-white font-bold text-xl mb-6">🔧 Technical Stack</h3>
+						<h3 className="text-white font-bold text-xl mb-6">Technical Stack</h3>
 						<div className="grid md:grid-cols-2 gap-6">
 							<div>
 								<h4 className="text-netflix-red font-bold mb-3">Frontend</h4>
