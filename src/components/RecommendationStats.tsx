@@ -57,7 +57,7 @@ const RecommendationStats: FC<RecommendationStatsProps> = ({
 					<div className="flex justify-between">
 						<span className="text-netflix-gray text-sm">Time Taken:</span>
 						<span className="text-netflix-red font-semibold">
-							{traversalTimeMs.toFixed(7)}ms
+							{traversalTimeMs.toFixed(4)}ms
 						</span>
 					</div>
 				</div>
